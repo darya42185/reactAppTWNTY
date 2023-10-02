@@ -1,0 +1,40 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "react-app",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "import", "prettier"],
+  "rules": {
+    "no-console": "warn",
+    "spaced-comment": "warn",
+    "no-unused-vars": "warn",
+    "no-empty": "warn",
+    "no-prototype-builtins": "warn",
+    "react/display-name": "warn",
+    "no-unreachable": "warn",
+    "react/no-unescaped-entities": "warn",
+    "import/no-unresolved": "warn",
+    "react/jsx-filename-extension": 0,
+    "react/button-has-type": 0,
+    "react/prop-types": 0,
+    "prettier/prettier": 0,
+    "eqeqeq": "warn"
+  }
+}
