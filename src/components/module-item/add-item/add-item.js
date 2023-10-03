@@ -3,9 +3,9 @@ import styles from "./add-item.module.css";
 
 /* import styles from "./ModuleItemForm.module.css"; */
 
-const AddItem = ({ maxItem, onAddToCart, id }) => {
+const AddItem = ({ maxItem, onAddToCart }) => {
   const [value, setValue] = useState(1);
-  const addItem = () => onAddToCart(value);
+  const addItem = () => onAddToCart(+value);
 
   return (
     <div className={styles.form}>
