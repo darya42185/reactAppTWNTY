@@ -1,16 +1,15 @@
 import styles from "./solar-panel-list.module.css";
 import { useGetSolarPanelQuery } from "../../services/solarPanel.js";
 import ModuleItem from "../module-item/module-item";
-import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const SolarPanelsList = () => {
   const { data = [], error, isLoading } = useGetSolarPanelQuery();
-  const [isOpen, setIsOpen] = useState(false);
 
   const moduleList = Object.keys(data)
     .map((key) => ({
       name: key,
-      id: Math.floor(Math.random() * 1000000),
+      id: uuidv4(),
       ...data[key],
     }))
     .map((item) => (
@@ -22,20 +21,20 @@ const SolarPanelsList = () => {
         price={item.price}
       />
     ));
-  if (isLoading) return <div>Loading</div>;
+
   return (
-    <section className={styles.modules}>
-      <div className={styles.card}>
-        <ul>{moduleList}</ul>
-      </div>
-      <button
-        onClick={() => {
-          setIsOpen((value) => !value);
-        }}
-      >
-        Togglke
-      </button>
-    </section>
+    <>
+      {isLoading && (
+        <div className={styles.loaderContainer}>
+          <div className={styles.loader}></div>
+        </div>
+      )}
+      <section className={styles.modules}>
+        <div className={styles.card}>
+          <ul>{moduleList}</ul>
+        </div>
+      </section>
+    </>
   );
 };
 
