@@ -1,7 +1,6 @@
 import styles from "./cart-item.module.css";
 
 const CartItem = ({ name, amount, price, onRemove, onAdd }) => {
-  console.log("amount", amount);
   return (
     <li className={styles["cart-item"]}>
       <div>

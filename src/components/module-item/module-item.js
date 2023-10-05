@@ -10,10 +10,11 @@ const ModuleItem = ({ id, name, price, quantity }) => {
 
   const addToCartHandler = (amount) => {
     const newItem = {
-      id: id,
-      name: name,
-      amount: amount,
-      price: price,
+      id,
+      name,
+      amount,
+      price,
+      quantity,
     };
     if (items.some((el) => el.id === id)) {
       const result = items.map((el) => {

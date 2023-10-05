@@ -1,0 +1,43 @@
+.cartItem {
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #191b99;
+  padding: 1rem 0;
+}
+
+.back {
+  color: #191b99;
+  font-weight: bold;
+}
+
+.input {
+  border: 1px solid #191b99;
+  width: 30rem;
+  border-radius: 6px;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: 1rem;
+  margin: 0.25rem;
+}
+
+.submit {
+  background-color: #191b99;
+  color: white;
+  width: 10rem;
+  height: 2rem;
+  border-radius: 6px;
+  border: 1px solid #191b99;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.warning {
+  margin: 0;
+  padding: 0;
+  color: red;
+}
+
+.successOrder {
+  color: green;
+  font-size: 1.5rem;
+}
