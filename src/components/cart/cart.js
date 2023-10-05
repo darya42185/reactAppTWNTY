@@ -5,11 +5,15 @@ import Modal from "@mui/material/Modal";
 import { useState } from "react";
 import CartItem from "./cart-item";
 import { updateCartItems } from "../../features/cart";
+import Order from "../order/order";
 
 const Cart = () => {
   const [open, setOpen] = useState(false);
+  const [isOpenOrder, setIsOpenOrder] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleOpenOrder = () => setIsOpenOrder(true);
+  const handleCloseOrder = () => setIsOpenOrder(false);
   const items = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
 
@@ -36,6 +40,7 @@ const Cart = () => {
   };
 
   const cartItemAddHandler = (item) => {
+    if (item.amount >= item.quantity) return;
     const result = { ...item, amount: item.amount + 1 };
     const editArray = items.map((items) => {
       if (item.id === items.id) return result;
@@ -63,7 +68,6 @@ const Cart = () => {
     <>
       <button className={styles.button} onClick={handleOpen}>
         <img src={cartIcon} alt="icon" className={styles.icon} />
-
         <span>Your Cart</span>
         <span className={styles.badge}>{+numberOfCartItems}</span>
       </button>
@@ -80,9 +84,22 @@ const Cart = () => {
               Close
             </button>
             {items.length > 0 && (
-              <button className={styles.button}>Order</button>
+              <button
+                onClick={() => {
+                  handleOpenOrder();
+                  handleClose();
+                }}
+                className={styles.button}
+              >
+                Order
+              </button>
             )}
           </div>
+        </div>
+      </Modal>
+      <Modal open={isOpenOrder} onClose={handleCloseOrder}>
+        <div className="modal-container">
+          <Order closeOrder={handleCloseOrder} openCart={handleOpen} />
         </div>
       </Modal>
     </>
