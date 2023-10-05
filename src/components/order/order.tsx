@@ -1,14 +1,31 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, RegisterOptions } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartItems } from "../../features/cart";
 import styles from "./order.module.css";
+import { RootState, OrderProps } from "../../types/interfaces";
 
-const Order = ({ closeOrder, openCart }) => {
+const Order: React.FC<OrderProps> = ({ closeOrder, openCart }) => {
   const dispatch = useDispatch();
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const items = useSelector((state) => state.cart.cartItems);
+  const emailValidation: RegisterOptions = {
+    required: "Email is required",
+    maxLength: {
+      value: 80,
+      message: "Email is too long",
+    },
+    minLength: {
+      value: 5,
+      message: "Email is too short",
+    },
+    pattern: {
+      value: /^\S+@\S+\.\S+$/,
+      message: "Invalid email format",
+    },
+  };
+
+  const items = useSelector((state: RootState) => state.cart.cartItems);
   const {
     register,
     handleSubmit,
@@ -17,7 +34,7 @@ const Order = ({ closeOrder, openCart }) => {
   const totalAmount = items.reduce((acc, curr) => {
     return acc + curr.price * curr.amount;
   }, 0);
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     setIsSuccess(true);
     setTimeout(() => {
       closeOrder();
@@ -86,14 +103,7 @@ const Order = ({ closeOrder, openCart }) => {
           className={styles.input}
           type="text"
           placeholder="email"
-          {...register("email", {
-            required: true,
-            maxLength: 80,
-            minLength: 5,
-            pattern: {
-              value: /^\S+@\S+\.\S+$/,
-            },
-          })}
+          {...register("email", emailValidation)}
         />
         {errors?.email && (
           <p className={styles.warning}>Please specify your Email</p>

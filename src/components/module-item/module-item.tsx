@@ -1,14 +1,37 @@
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-/* import ModuleItemForm from "./ModuleItemForm"; */
 import styles from "./module-item.module.css";
 import { updateCartItems } from "../../features/cart";
 import AddItem from "./add-item/add-item";
+import { RootState } from "../../types/interfaces";
 
-const ModuleItem = ({ id, name, price, quantity }) => {
+interface ModuleItemProps {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+interface CartItem {
+  id: string;
+  name: string;
+  amount: number;
+  price: number;
+  quantity: number;
+}
+
+const ModuleItem: React.FC<ModuleItemProps> = ({
+  id,
+  name,
+  price,
+  quantity,
+}) => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.cart.cartItems);
+  const items: CartItem[] = useSelector(
+    (state: RootState) => state.cart.cartItems
+  );
 
-  const addToCartHandler = (amount) => {
+  const addToCartHandler = (amount: number) => {
     const newItem = {
       id,
       name,
