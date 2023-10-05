@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import styles from "./cart.module.css";
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
 import CartItem from "./cart-item";
 import { updateCartItems } from "../../features/cart";
 import Order from "../order/order";

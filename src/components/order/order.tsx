@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm, RegisterOptions } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartItems } from "../../features/cart";
 import styles from "./order.module.css";
+import { updateCartItems } from "../../features/cart";
 import { RootState, OrderProps } from "../../types/interfaces";
 
 const Order: React.FC<OrderProps> = ({ closeOrder, openCart }) => {
