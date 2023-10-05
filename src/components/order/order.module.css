@@ -8,6 +8,7 @@
 .back {
   color: #191b99;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .input {

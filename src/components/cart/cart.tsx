@@ -1,4 +1,3 @@
-import cartIcon from "./images/cart-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./cart.module.css";
 import Modal from "@mui/material/Modal";
@@ -6,6 +5,7 @@ import { useState } from "react";
 import CartItem from "./cart-item";
 import { updateCartItems } from "../../features/cart";
 import Order from "../order/order";
+import { CartItemProps, RootState } from "../../types/interfaces";
 
 const Cart = () => {
   const [open, setOpen] = useState(false);
@@ -14,24 +14,29 @@ const Cart = () => {
   const handleClose = () => setOpen(false);
   const handleOpenOrder = () => setIsOpenOrder(true);
   const handleCloseOrder = () => setIsOpenOrder(false);
-  const items = useSelector((state) => state.cart.cartItems);
+  const items = useSelector((state: RootState) => state.cart.cartItems);
   const dispatch = useDispatch();
 
-  const numberOfCartItems = items.reduce((curNum, item) => {
-    return curNum + +item.amount;
-  }, 0);
+  const numberOfCartItems = items.reduce(
+    (curNum: number, item: CartItemProps) => {
+      return curNum + +item.amount;
+    },
+    0
+  );
 
-  const totalAmount = items.reduce((acc, curr) => {
+  const totalAmount = items.reduce((acc: number, curr: CartItemProps) => {
     return acc + curr.price * curr.amount;
   }, 0);
 
-  const cartItemRemoveHandler = (element) => {
+  const cartItemRemoveHandler = (element: CartItemProps) => {
     if (element.amount <= 1) {
-      const filteredArray = items.filter((item) => item.id !== element.id);
+      const filteredArray = items.filter(
+        (item: CartItemProps) => item.id !== element.id
+      );
       dispatch(updateCartItems(filteredArray));
     } else {
       const result = { ...element, amount: element.amount - 1 };
-      const editArray = items.map((items) => {
+      const editArray = items.map((items: CartItemProps) => {
         if (element.id === items.id) return result;
         else return items;
       });
@@ -39,10 +44,10 @@ const Cart = () => {
     }
   };
 
-  const cartItemAddHandler = (item) => {
+  const cartItemAddHandler = (item: CartItemProps) => {
     if (item.amount >= item.quantity) return;
     const result = { ...item, amount: item.amount + 1 };
-    const editArray = items.map((items) => {
+    const editArray = items.map((items: CartItemProps) => {
       if (item.id === items.id) return result;
       else return items;
     });
@@ -51,11 +56,13 @@ const Cart = () => {
 
   const cartItems = (
     <ul className={styles["cart-items"]}>
-      {items.map((item) => (
+      {items.map((item: CartItemProps) => (
         <CartItem
           key={item.id}
+          id={item.id}
           name={item.name}
           amount={item.amount}
+          quantity={item.quantity}
           price={item.price}
           onRemove={() => cartItemRemoveHandler(item)}
           onAdd={cartItemAddHandler.bind(null, item)}
@@ -67,7 +74,6 @@ const Cart = () => {
   return (
     <>
       <button className={styles.button} onClick={handleOpen}>
-        <img src={cartIcon} alt="icon" className={styles.icon} />
         <span>Your Cart</span>
         <span className={styles.badge}>{+numberOfCartItems}</span>
       </button>

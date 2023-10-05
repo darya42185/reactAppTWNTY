@@ -1,5 +1,5 @@
 import styles from "./solar-panel-list.module.css";
-import { useGetSolarPanelQuery } from "../../services/solarPanel.js";
+import { useGetSolarPanelQuery } from "../../services/solarPanel";
 import ModuleItem from "../module-item/module-item";
 import { v4 as uuidv4 } from "uuid";
 

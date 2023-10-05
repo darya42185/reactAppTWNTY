@@ -1,6 +1,13 @@
 import styles from "./cart-item.module.css";
+import { CartItemProps } from "../../types/interfaces";
 
-const CartItem = ({ name, amount, price, onRemove, onAdd }) => {
+const CartItem: React.FC<CartItemProps> = ({
+  name,
+  amount,
+  price,
+  onRemove,
+  onAdd,
+}) => {
   return (
     <li className={styles["cart-item"]}>
       <div>
